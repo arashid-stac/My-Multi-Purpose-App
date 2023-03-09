@@ -3,6 +3,7 @@ package com.rashid.backend.controller;
 import com.rashid.backend.Exercise;
 import com.rashid.backend.ExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,4 +39,18 @@ public class ExerciseController {
         exRepo.save(exercise);
     }
 
+    @PutMapping("{exerciseId}")
+    public void editExercise(@PathVariable("exerciseId") Integer id,
+                             @RequestBody NewExerciseRequest request) throws Exception {
+        Exercise exercise = exRepo.findById(id).orElseThrow(()-> new Exception("Error"));
+        if (request.exName!=null) {
+            exercise.setExName(request.exName);
+        }
+
+        if (request.muscleGroup!=null) {
+            exercise.setMuscleGroup(request.muscleGroup);
+        }
+
+        exRepo.save(exercise);
+    }
 }
