@@ -53,4 +53,9 @@ public class ExerciseController {
 
         exRepo.save(exercise);
     }
+
+    @DeleteMapping("{exerciseId}")
+    public void deleteExercise(@PathVariable("exerciseId") Integer id) {
+        exRepo.deleteById(id);
+    }
 }
